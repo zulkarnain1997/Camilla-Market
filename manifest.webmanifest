@@ -1,0 +1,16 @@
+{
+  "name": "Minimarket POS",
+  "short_name": "Minimarket",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f7f5",
+  "theme_color": "#166534",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

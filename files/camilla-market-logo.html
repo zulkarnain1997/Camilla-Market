@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Camilla Market - Logo</title>
+<style>
+  html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:transparent;
+    overflow:hidden;
+  }
+
+  svg{
+    display:block;
+    width:100%;
+    height:100%;
+    max-width:100%;
+    max-height:100%;
+  }
+
+  @keyframes drawCircle{from{stroke-dashoffset:600;}to{stroke-dashoffset:0;}}
+  @keyframes drawInner{from{stroke-dashoffset:515;}to{stroke-dashoffset:0;}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes breathe{0%,100%{opacity:1;}50%{opacity:0.55;}}
+  @keyframes floatIcon{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+
+  .outer{stroke-dasharray:600;stroke-dashoffset:600;animation:drawCircle 1.4s ease-out forwards, breathe 3s ease-in-out 1.6s infinite;}
+  .inner{stroke-dasharray:515;stroke-dashoffset:515;animation:drawInner 1.4s ease-out 0.2s forwards;}
+  .icon{opacity:0;animation:fadeUp 0.7s ease-out 1.1s forwards, floatIcon 3s ease-in-out 1.8s infinite;}
+  .name{opacity:0;animation:fadeUp 0.7s ease-out 1.5s forwards;}
+  .sub{opacity:0;animation:fadeUp 0.7s ease-out 1.8s forwards;}
+</style>
+</head>
+<body>
+<svg viewBox="0 0 680 340" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Logo Camilla Market</title>
+<circle class="outer" cx="340" cy="140" r="85" fill="none" stroke="#B08D57" stroke-width="2"/>
+<circle class="inner" cx="340" cy="140" r="73" fill="none" stroke="#B08D57" stroke-width="1"/>
+<g class="icon">
+<path d="M312 130 L320 108 M368 130 L360 108" fill="none" stroke="#B08D57" stroke-width="2" stroke-linecap="round"/>
+<path d="M308 130 L372 130 L364 172 L316 172 Z" fill="none" stroke="#B08D57" stroke-width="2" stroke-linejoin="round"/>
+<line x1="308" y1="145" x2="372" y2="145" stroke="#B08D57" stroke-width="1.5"/>
+</g>
+<text class="name" x="340" y="255" text-anchor="middle" font-family="Georgia, serif" font-size="38" letter-spacing="3" fill="#2B2B2B">Camilla</text>
+<text class="sub" x="340" y="286" text-anchor="middle" font-family="Georgia, serif" font-size="18" letter-spacing="8" fill="#B08D57">M A R K E T</text>
+</svg>
+</body>
+</html>
