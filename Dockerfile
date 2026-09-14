@@ -1,24 +1,9 @@
-FROM php:8.3-apache
+FROM php:8.3-cli
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libsqlite3-dev \
     && docker-php-ext-install pdo_sqlite \
     && rm -rf /var/lib/apt/lists/*
-
-RUN a2enmod rewrite \
-    && sed -ri 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
-
-RUN printf '%s\n' \
-    '<Directory /var/www/html>' \
-    '    Options -Indexes' \
-    '    AllowOverride All' \
-    '    Require all granted' \
-    '</Directory>' \
-    '<FilesMatch "(^setup\\.php$|\\.(sqlite|db)$)">' \
-    '    Require all denied' \
-    '</FilesMatch>' \
-    > /etc/apache2/conf-available/camilla-security.conf \
-    && a2enconf camilla-security
 
 RUN printf '%s\n' \
     'date.timezone=Asia/Jakarta' \
@@ -39,4 +24,4 @@ RUN chmod +x /usr/local/bin/camilla-entrypoint
 
 EXPOSE 80
 ENTRYPOINT ["camilla-entrypoint"]
-CMD ["apache2-foreground"]
+CMD ["php", "-S", "0.0.0.0:80", "router.php"]
