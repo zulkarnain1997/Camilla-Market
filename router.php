@@ -18,12 +18,12 @@ $fullPath = __DIR__ . $uri;
 
 // Biarkan PHP built-in server melayani file yang benar-benar ada
 // (termasuk api.php, JS, CSS, gambar, manifest, service worker, dll).
-if ($uri !== '/' && is_file($fullPath)) {
+if ($uri !== '/' && is_file($fullPath) && $uri !== '/index.php') {
     return false;
 }
 
 if ($uri === '/' || $uri === '/index.php') {
-    require __DIR__ . '/index.php';
+    require __DIR__ . '/enhanced-index.php';
     return true;
 }
 
