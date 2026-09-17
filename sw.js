@@ -1,12 +1,10 @@
-const CACHE='camilla-market-20260915-logosame1';
+const CACHE='ada-apa-aja-20260918-blue-gradient-v133';
 const ASSETS=[
   './',
   'index.php',
-  'assets/css/style.css?v=20260915-logosame1',
-  'assets/js/app.js?v=20260915-menuauthvisibility3',
-  'manifest.webmanifest',
-  'assets/icon.svg',
-  'files/camilla-market-logo.html'
+  'assets/css/style.css?v=20260918-blue-gradient-v133',
+  'assets/js/app.js?v=20260918-blue-gradient-v133',
+  'files/default-logo.png'
 ];
 
 self.addEventListener('install', event => {

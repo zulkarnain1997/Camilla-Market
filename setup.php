@@ -12,12 +12,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL UNIQUE,
+                email TEXT NULL,
                 password_hash TEXT NOT NULL,
                 name TEXT NOT NULL,
+                phone TEXT NULL,
+                address TEXT NULL,
+                photo_path TEXT NULL,
                 role TEXT NOT NULL DEFAULT 'admin',
                 created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
             );
 
+            CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email_unique ON users(email) WHERE email IS NOT NULL AND TRIM(email) <> '';
+            CREATE TABLE IF NOT EXISTS saved_login_tokens (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                token_hash TEXT NOT NULL UNIQUE,
+                expires_at TEXT NOT NULL,
+                last_used_at TEXT NULL,
+                created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            );
+            CREATE INDEX IF NOT EXISTS idx_saved_login_tokens_user ON saved_login_tokens(user_id);
             CREATE TABLE IF NOT EXISTS products (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 barcode TEXT UNIQUE,
@@ -40,6 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 total REAL NOT NULL,
                 paid REAL NOT NULL,
                 change_amount REAL NOT NULL,
+                payment_method TEXT NOT NULL DEFAULT 'cash',
+                payment_status TEXT NOT NULL DEFAULT 'paid',
+                paid_at TEXT NULL,
+                qris_setting_id INTEGER NULL,
+                qris_name TEXT NULL,
                 cashier_id INTEGER NOT NULL,
                 created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (cashier_id) REFERENCES users(id)
@@ -59,7 +79,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             CREATE INDEX IF NOT EXISTS idx_products_name ON products(name);
             CREATE INDEX IF NOT EXISTS idx_products_barcode ON products(barcode);
             CREATE INDEX IF NOT EXISTS idx_sales_created_at ON sales(created_at);
+
+            CREATE TABLE IF NOT EXISTS finance_transactions (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                trx_date TEXT NOT NULL,
+                type TEXT NOT NULL CHECK(type IN ('income','expense')),
+                category TEXT,
+                description TEXT NOT NULL,
+                amount REAL NOT NULL DEFAULT 0,
+                created_by INTEGER NOT NULL,
+                created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (created_by) REFERENCES users(id)
+            );
+
+            CREATE TABLE IF NOT EXISTS qris_settings (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                payload TEXT NOT NULL,
+                is_active INTEGER NOT NULL DEFAULT 1,
+                is_default INTEGER NOT NULL DEFAULT 0,
+                created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_qris_settings_active
+            ON qris_settings(is_active, is_default, id);
+
+            CREATE TABLE IF NOT EXISTS app_settings (
+                setting_key TEXT PRIMARY KEY,
+                setting_value TEXT NULL,
+                updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+            );
         ");
+
+        $brandingDefaults = [
+            'website_name' => 'Ada Apa Aja',
+            'app_name' => 'Ada Apa Aja POS',
+            'app_icon' => 'files/default-logo.png',
+        ];
+        $brandingStmt = $pdo->prepare("
+            INSERT OR IGNORE INTO app_settings(setting_key, setting_value, updated_at)
+            VALUES(?, ?, CURRENT_TIMESTAMP)
+        ");
+        foreach ($brandingDefaults as $key => $value) {
+            $brandingStmt->execute([$key, $value]);
+        }
 
         $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
         $stmt->execute(['admin']);
@@ -104,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Setup Minimarket</title>
+    <title>Setup Ada Apa Aja</title>
     <style>
         body{font-family:Arial,sans-serif;background:#f4f7fb;padding:30px;color:#1f2937}
         .box{max-width:650px;margin:auto;background:#fff;padding:28px;border-radius:18px;box-shadow:0 12px 35px rgba(0,0,0,.08)}
@@ -115,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <div class="box">
-    <h1>Setup Minimarket</h1>
+    <h1>Setup Ada Apa Aja</h1>
     <p>Tekan tombol di bawah untuk membuat database dan data awal.</p>
     <?php if ($message): ?><div class="msg"><?= htmlspecialchars($message) ?></div><?php endif; ?>
     <form method="post"><button type="submit">Install / Prepare Database</button></form>

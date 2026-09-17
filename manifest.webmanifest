@@ -1,15 +1,15 @@
 {
-  "name": "Minimarket POS",
-  "short_name": "Minimarket",
+  "name": "Ada Apa Aja POS",
+  "short_name": "Ada Apa Aja",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f4f7f5",
   "theme_color": "#166534",
   "icons": [
     {
-      "src": "assets/icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "files/default-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]

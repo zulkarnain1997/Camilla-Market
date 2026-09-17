@@ -198,3 +198,9 @@ input:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(21,128,61,.1)}
     height:115px;
   }
 }
+
+/* Payment QR, finance & export */
+.pay-field select,.finance-form input,.finance-form select,.qr-settings-form input,.qr-settings-form textarea{width:100%;border:1px solid var(--border,#e5e7eb);border-radius:10px;padding:11px 12px;background:#fff;font:inherit}
+.finance-form{display:grid;grid-template-columns:150px 160px 1fr 2fr 150px auto;gap:10px;align-items:end}.qr-settings-form{display:grid;grid-template-columns:220px 1fr auto;gap:10px;align-items:start}.qr-payment-code{display:flex;justify-content:center;align-items:center;padding:14px;background:#fff;border-radius:14px;margin:14px auto;min-height:248px}.qr-payment-code img,.qr-payment-code canvas{max-width:220px!important;max-height:220px!important}.btn-sm{padding:6px 9px;font-size:11px}
+@media(max-width:980px){.finance-form,.qr-settings-form{grid-template-columns:1fr}.report-filter{flex-wrap:wrap}}
+@media print{.side-nav,.topbar,.section-toolbar button{display:none!important}}
