@@ -464,8 +464,14 @@ function notifyNativeScannerResumeReady({authenticated=true, section=""} = {}){
   }catch(_){}
 }
 
+function finishAuthBoot(){
+  document.body.classList.remove("auth-booting");
+  $("#authBootScreen")?.classList.add("hidden");
+}
+
 function showLogin(){
   const scannerResume = getNativeScannerResumeState();
+  finishAuthBoot();
 
   stopAccessSync();
   currentUser = null;
@@ -495,6 +501,7 @@ function renderCurrentUserAvatar(){
 
 function showApp(user, permissions=[]){
   const scannerResume = getNativeScannerResumeState();
+  finishAuthBoot();
 
   currentUser = user;
   currentPermissions = Array.isArray(permissions) ? permissions : [];
