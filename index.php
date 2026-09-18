@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" id="dynamicFavicon" href="files/default-logo.png">
   <link rel="manifest" href="manifest.php">
-  <link rel="stylesheet" href="assets/css/style.css?v=20260918-blue-gradient-v133">
+  <link rel="stylesheet" href="assets/css/style.css?v=20260918-auth-boot-v134">
   <script>
     try {
       if (localStorage.getItem("camilla_native_scanner_resume") === "1") {
@@ -20,7 +20,14 @@
     } catch (_) {}
   </script>
 </head>
-<body>
+<body class="auth-booting">
+  <div class="auth-boot-screen" id="authBootScreen" aria-live="polite">
+    <div class="auth-boot-card">
+      <img src="files/default-logo.png" alt="Ada Apa Aja" class="auth-boot-logo">
+      <div class="auth-boot-spinner" aria-hidden="true"></div>
+      <span>Memuat sesi...</span>
+    </div>
+  </div>
   <div class="pull-refresh-indicator" id="pullRefreshIndicator">
     <div class="pull-refresh-spinner" id="pullRefreshSpinner"></div>
     <span id="pullRefreshText">Tarik untuk refresh</span>
@@ -1059,10 +1066,10 @@
   <div class="toast hidden" id="toast"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script src="assets/js/app.js?v=20260918-blue-gradient-v133"></script>
+  <script src="assets/js/app.js?v=20260918-auth-boot-v134"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js?v=20260918-blue-gradient-v133').catch(()=>{});
+      navigator.serviceWorker.register('sw.js?v=20260918-auth-boot-v134').catch(()=>{});
     }
   </script>
 </body>
