@@ -1,13 +1,6 @@
 <?php
 declare(strict_types=1);
 
-ob_start();
+// Entrypoint Railway: gunakan index utama secara langsung.
+// File enhancement lama dinonaktifkan agar tidak menyisipkan tombol Produk & Stok duplikat.
 require __DIR__ . '/index.php';
-$html = ob_get_clean();
-
-$enhancement = <<<'HTML'
-<script src="assets/js/pos-enhancements.js?v=20260915-pos1"></script>
-HTML;
-
-$html = str_replace('</body>', $enhancement . "\n</body>", $html);
-echo $html;
