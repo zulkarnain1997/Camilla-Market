@@ -1,9 +1,9 @@
-const CACHE='ada-apa-aja-20260918-blue-gradient-v133';
+const CACHE='ada-apa-aja-20260918-auth-boot-v134';
 const ASSETS=[
   './',
   'index.php',
-  'assets/css/style.css?v=20260918-blue-gradient-v133',
-  'assets/js/app.js?v=20260918-blue-gradient-v133',
+  'assets/css/style.css?v=20260918-auth-boot-v134',
+  'assets/js/app.js?v=20260918-auth-boot-v134',
   'files/default-logo.png'
 ];
 
