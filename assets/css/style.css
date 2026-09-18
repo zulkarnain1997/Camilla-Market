@@ -4061,3 +4061,54 @@ input:focus,select:focus,textarea:focus,
 }
 
 /* Semantic danger/warning tetap merah/kuning agar status tetap mudah dibedakan. */
+
+
+/* AUTH BOOT / REFRESH SESSION V1.0.34 */
+body.auth-booting{
+  overflow:hidden;
+}
+body.auth-booting #loginView,
+body.auth-booting #appView{
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+.auth-boot-screen{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:linear-gradient(145deg,#e0f2fe 0%,#bfdbfe 46%,#1e3a8a 160%);
+}
+.auth-boot-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  min-width:210px;
+  padding:26px 30px;
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:24px;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 20px 60px rgba(30,58,138,.15);
+  backdrop-filter:blur(12px);
+  color:#1e3a8a;
+  font-size:13px;
+  font-weight:700;
+}
+.auth-boot-logo{
+  width:min(270px,64vw);
+  max-height:105px;
+  object-fit:contain;
+}
+.auth-boot-spinner{
+  width:26px;
+  height:26px;
+  border:3px solid #bae6fd;
+  border-top-color:#1d4ed8;
+  border-radius:50%;
+  animation:authBootSpin .75s linear infinite;
+}
+@keyframes authBootSpin{to{transform:rotate(360deg)}}
